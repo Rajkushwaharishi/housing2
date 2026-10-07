@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body { @apply bg-paper font-sans text-[16px] text-ink antialiased; }
+
+:focus-visible { outline: 3px solid #F5A81C; outline-offset: 2px; border-radius: 6px; }
+select, input, textarea { outline-offset: 0; }
+select:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid #1F6B5E; outline-offset: 0; }
+details > summary::-webkit-details-marker { display: none; }
+
+/* Hero locality map: one staged reveal on load */
+.locality-bubble { cursor: pointer; transform-box: fill-box; transform-origin: center; animation: bubble-in 520ms cubic-bezier(.2,.8,.2,1) both; }
+.locality-bubble:hover circle { stroke: #F5A81C; }
+@keyframes bubble-in { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
+
+/* Leaflet price pins */
+.price-pin-wrap { background: none; border: 0; }
+.price-pin {
+  position: absolute; transform: translate(-50%, -100%); white-space: nowrap;
+  background: #0B2A26; color: #fff; font: 700 13px/1 "Bricolage Grotesque", Hind, sans-serif;
+  padding: 6px 9px; border-radius: 8px; box-shadow: 0 4px 12px rgba(11,42,38,.35); border: 2px solid #fff;
+}
+.price-pin::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 10px; height: 10px; background: inherit; transform: translateX(-50%) rotate(45deg); border-right: 2px solid #fff; border-bottom: 2px solid #fff; }
+.price-pin.is-auction { background: #B8392B; }
+.price-pin-single { width: 22px; height: 22px; padding: 0; border-radius: 50% 50% 50% 0; transform: translate(-50%, -100%) rotate(-45deg); background: #F5A81C; }
+.price-pin-single::after { display: none; }
+.map-popup { color: #12201D; text-decoration: none; font: 500 14px/1.4 Hind, sans-serif; }
+.map-popup:hover { text-decoration: underline; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .locality-bubble { animation: none; }
+  * { transition-duration: 0.01ms !important; }
+}
